@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brotzeit – Gruppe beitreten</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; text-align: center; padding: 40px 20px; background: #f5f5f7; }
+        .card { background: white; border-radius: 16px; padding: 32px; max-width: 400px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { font-size: 48px; margin: 0; }
+        h2 { color: #333; }
+        .code { font-size: 36px; font-weight: bold; letter-spacing: 8px; color: #007AFF; background: #f0f7ff; padding: 16px 24px; border-radius: 12px; margin: 20px 0; font-family: monospace; }
+        .btn { display: block; background: #007AFF; color: white; padding: 16px 24px; border-radius: 12px; text-decoration: none; font-size: 18px; font-weight: bold; margin: 16px 0; }
+        p { color: #666; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>🌭</h1>
+        <h2>Zur Brotzeit Gruppe eingeladen!</h2>
+        <div class="code" id="codeBox">...</div>
+        <a class="btn" id="openBtn" href="#">App öffnen & beitreten</a>
+        <p>Falls die App nicht öffnet: Lade die <b>Brotzeit App</b> herunter und gib den Code oben ein.</p>
+    </div>
+    <script>
+        const code = new URLSearchParams(window.location.search).get("code") || "??????";
+        document.getElementById("codeBox").textContent = code;
+        document.getElementById("openBtn").href = "brotzeit://join?code=" + code;
+        // Automatisch App öffnen
+        window.location.href = "brotzeit://join?code=" + code;
+    </script>
+</body>
+</html>
