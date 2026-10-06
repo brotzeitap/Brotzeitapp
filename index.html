@@ -252,10 +252,20 @@
     // Manuelle Buttons trotzdem anzeigen, falls der automatische Versuch
     // fehlschlägt oder der Nutzer nicht warten will.
     setTimeout(zeigeStoreButtons, 400);
+  } else if (!code && !isInAppBrowser && (isIOS || isAndroid)) {
+    // Kein Code (z. B. Link in der Instagram-Bio): kein App-Öffnen-Versuch
+    // nötig, aber direkt zum passenden Store weiterleiten, statt nur den
+    // Button anzuzeigen und auf einen Tap zu warten.
+    statusEl.textContent = "Weiter zum Store …";
+    var storeUrl = isIOS ? APP_STORE_URL : PLAY_STORE_URL;
+    setTimeout(function () {
+      window.location = storeUrl;
+    }, 250);
+    zeigeStoreButtons();
   } else {
-    // Kein Code (z. B. Link in der Instagram-Bio) oder Desktop/In-App-Browser:
-    // direkt die passenden Store-Buttons zeigen, kein Redirect-Versuch.
-    if (isInAppBrowser) {
+    // Desktop, oder In-App-Browser (Instagram/Facebook/...): kein
+    // automatischer Redirect-Versuch, nur die passenden Buttons zeigen.
+    if (code && isInAppBrowser) {
       statusEl.textContent = "Zum Öffnen bitte im echten Browser aufrufen.";
     }
     zeigeStoreButtons();
